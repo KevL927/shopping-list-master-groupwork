@@ -16,7 +16,8 @@
 $(document).ready(function(){
   $('#entry-button').click(function() {
     var item = $('#shopping-list-entry').val();
-    $('.shopping-list').append("<li>" +
+
+    $('.shopping-list').append('<li>' +
             '<span class="shopping-item">' + item + '</span>' +
             '<div class="shopping-item-controls">' +
             '<button class="shopping-item-toggle">' +
@@ -28,5 +29,11 @@ $(document).ready(function(){
             '</div>' +
             '</li>'
     );
+    $('#shopping-list-entry').val("");
   });
+  $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
+    $(this).closest('li').find('.shopping-item').toggleClass('.shopping-item shopping-item__checked');
+
+    // $('.shopping-item').css('text-decoration','linethrough');
+  })
 });
