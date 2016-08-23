@@ -30,7 +30,8 @@ $(document).ready(function(){
               '</button>' +
               '</div>' +
               '</li>')
-            .val('');
+
+      $('#shopping-list-entry').val('');
   });
 
   $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
