@@ -14,26 +14,27 @@
 //  - the whole entire box for the item (including the buttons) will be removed from the list
 
 $(document).ready(function(){
-  $('#entry-button').click(function() {
+  $('#js-shopping-list-form').submit(function(event) {
+    event.preventDefault();
     var item = $('#shopping-list-entry').val();
 
-    $('.shopping-list').append('<li>' +
-            '<span class="shopping-item">' + item + '</span>' +
-            '<div class="shopping-item-controls">' +
-            '<button class="shopping-item-toggle">' +
-            '<span class="button-label">check</span>' +
-            '</button>' +
-            '<button class="shopping-item-delete">' +
-            '<span class="button-label">delete</span>' +
-            '</button>' +
-            '</div>' +
-            '</li>'
-    );
-    $('#shopping-list-entry').val("");
+    $('.shopping-list')
+            .append('<li>' +
+              '<span class="shopping-item">' + item + '</span>' +
+              '<div class="shopping-item-controls">' +
+              '<button class="shopping-item-toggle">' +
+              '<span class="button-label">check</span>' +
+              '</button>' +
+              '<button class="shopping-item-delete">' +
+              '<span class="button-label">delete</span>' +
+              '</button>' +
+              '</div>' +
+              '</li>')
+            .val('');
   });
+
   $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
     $(this).closest('li').find('.shopping-item').toggleClass('.shopping-item shopping-item__checked');
-
-    // $('.shopping-item').css('text-decoration','linethrough');
+    $(this).closest('.shopping-item-toggle').find('.button-label').toggleClass('.button-label_uncheck');
   })
 });
