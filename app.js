@@ -22,38 +22,55 @@
 // Use the Web Storage API to keep track of the items in your list.
 
 'use strict'
-var checkButton;
+var checkButton,
+    deletedItems = [];
 
 $(document).ready(function() {
+  var itemTemplate = $('<li><span class="shopping-item"></span><div class="shopping-item-controls"><button class="shopping-item-toggle"><span class="button-label">check</span></button><button class="shopping-item-delete"><span class="button-label">delete</span></button></li>');
+  var shoppingList = $('.shopping-list')
+
+  // event handlers
+
+
     $('#js-shopping-list-form').submit(function(event) {
         event.preventDefault();
-        var item = $('#shopping-list-entry').val();
-
-        if (item.length > 0) {
-            $('.shopping-list').append('<li>' +
-                '<span class="shopping-item">' + item + '</span>' +
-                '<div class="shopping-item-controls">' +
-                '<button class="shopping-item-toggle">' +
-                '<span class="button-label">check</span>' +
-                '</button>' +
-                '<button class="shopping-item-delete">' +
-                '<span class="button-label">delete</span>' +
-                '</button>' +
-                '</li>');
-            $('#shopping-list-entry').val('');
+        if (!$('#shopping-list-entry').val()) {
+          return;
         }
 
+        var currentItem = itemTemplate.clone(),
+            currentShoppingItem = currentItem.find('.shopping-item');
+
+        currentShoppingItem.text($('#shopping-list-entry').val());
+        initializeItem(currentItem);
     });
 
-    $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
-        $(this).closest('li').find('.shopping-item').toggleClass('.shopping-item shopping-item__checked');
+    function initializeItem(currentItem) {
+      var currentShoppingItem = currentItem.find('.shopping-item');
+      var checkButton = currentItem.find('.shopping-item-toggle .button-label');
 
-        checkButton = $(this).closest('.shopping-item-toggle').find('.button-label');
-        (checkButton.text() === 'check') ? checkButton.text('uncheck'): checkButton.text('check');
-    })
+      function toggleItem (event, currentItem) {
+          currentShoppingItem.toggleClass('.shopping-item shopping-item__checked');
+          (checkButton.text() === 'check') ? checkButton.text('uncheck'): checkButton.text('check');
+      }
+      function deleteItem(event) {
+          currentItem.remove();
+          deletedItems.push(currentItem);
+      }
 
-    $('.shopping-list').on('click', '.shopping-item-delete', function(event) {
-        $(this).closest('li').remove();
+
+      shoppingList.append(currentItem);
+
+
+      $('.shopping-item-toggle', currentItem).on('click', toggleItem);
+      $('.shopping-item-delete', currentItem).on('click', deleteItem);
+
+
+      $('#shopping-list-entry').val('');
+    }
+
+    $('li').each(function () {
+      initializeItem($(this));
     })
 
     $(".filter").change(function() {
