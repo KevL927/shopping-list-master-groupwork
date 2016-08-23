@@ -12,8 +12,6 @@
 
 // when user clicks on delete button:
 //  - the whole entire box for the item (including the buttons) will be removed from the list
-
-<<<<<<< HEAD
 // Shopping List Extension Tasks
 
 // If you are looking for a further challenge, then try add some of the following features to your shopping list application:
@@ -29,91 +27,51 @@ var checkButton;
 $(document).ready(function() {
     $('#js-shopping-list-form').submit(function(event) {
         event.preventDefault();
-
         var item = $('#shopping-list-entry').val();
 
         if (item.length > 0) {
-            $('.shopping-list').append('<li>' +
-                '<span class="shopping-item">' + item + '</span>' +
-                '<div class="shopping-item-controls">' +
-                '<button class="shopping-item-toggle">' +
-                '<span class="button-label">check</span>' +
-                '</button>' +
-                '<button class="shopping-item-delete">' +
-                '<span class="button-label">delete</span>' +
-                '</button>' +
-                '</li>');
-            $('#shopping-list-entry').val('');
-        }
-
-    });
-
-$( ".filter" ).change(function() {
-  var filterSelector = $(this).val();
-
-  if(filterSelector === "Checked Items") {
-
-    $('')
-
-
-  } /*else if(filterSelector === "Unchecked Item") {
-
-  } else {
-
+      $('.shopping-list').append('<li>' +
+          '<span class="shopping-item">' + item + '</span>' +
+          '<div class="shopping-item-controls">' +
+          '<button class="shopping-item-toggle">' +
+          '<span class="button-label">check</span>' +
+          '</button>' +
+          '<button class="shopping-item-delete">' +
+          '<span class="button-label">delete</span>' +
+          '</button>' +
+          '</li>');
+      $('#shopping-list-entry').val('');
   }
-*/
 
 });
-// $( ".filter" )
-//   .change(function() {
-//     $( ".filter option:selected" ).each(function() {
-  
-//     });
-//     $( "div" ).text( str );
-//   })
-//   .trigger( "change" );
-
-
 
     $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
         $(this).closest('li').find('.shopping-item').toggleClass('.shopping-item shopping-item__checked');
 
-        $(this).closest('.shopping-item-toggle').find('.button-label').toggleClass('.button-label unchecked');
-        // (checkButton.text() === 'check') ? checkButton.text('uncheck'): checkButton.text('check');
-
-
-    });
+        checkButton = $(this).closest('.shopping-item-toggle').find('.button-label');
+        (checkButton.text() === 'check') ? checkButton.text('uncheck'): checkButton.text('check');
+    })
 
     $('.shopping-list').on('click', '.shopping-item-delete', function(event) {
         $(this).closest('li').remove();
-    });
+    })
 
+    $(".filter").change(function() {
+        var filterSelector = $(this).val();
 
-=======
-$(document).ready(function(){
-  $('#js-shopping-list-form').submit(function(event) {
-    event.preventDefault();
-    var item = $('#shopping-list-entry').val();
+        if (filterSelector === "Checked Items") {
+          $('.shopping-item-toggle .button-label').filter(function() { return $(this).text() === "check"; }).closest('li').hide();
+          //  $('.button-label').closest('li').hide();
+           // $('.button-label').closest('li').show();
+         }
+       //  else if(filterSelector === "Unchecked Item") {
+       //    $('.shopping-item').closest('li').hide();
+         //  $('.shopping-item__checked').closest('li').show();
+       //  }
+       //  else {
+       //    $('.shopping-item').closest('li').show();
+       //    $('.shopping-item__checked').closest('li').show();
+       //  }
+})
 
-    $('.shopping-list')
-            .append('<li>' +
-              '<span class="shopping-item">' + item + '</span>' +
-              '<div class="shopping-item-controls">' +
-              '<button class="shopping-item-toggle">' +
-              '<span class="button-label">check</span>' +
-              '</button>' +
-              '<button class="shopping-item-delete">' +
-              '<span class="button-label">delete</span>' +
-              '</button>' +
-              '</div>' +
-              '</li>')
-
-      $('#shopping-list-entry').val('');
-  });
-
-  $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
-    $(this).closest('li').find('.shopping-item').toggleClass('.shopping-item shopping-item__checked');
-    $(this).closest('.shopping-item-toggle').find('.button-label').toggleClass('.button-label_uncheck');
-  })
->>>>>>> 1ff74a5186537e3d5848f56f99ed9462c9530937
 });
