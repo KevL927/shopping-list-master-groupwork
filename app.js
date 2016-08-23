@@ -30,20 +30,20 @@ $(document).ready(function() {
         var item = $('#shopping-list-entry').val();
 
         if (item.length > 0) {
-      $('.shopping-list').append('<li>' +
-          '<span class="shopping-item">' + item + '</span>' +
-          '<div class="shopping-item-controls">' +
-          '<button class="shopping-item-toggle">' +
-          '<span class="button-label">check</span>' +
-          '</button>' +
-          '<button class="shopping-item-delete">' +
-          '<span class="button-label">delete</span>' +
-          '</button>' +
-          '</li>');
-      $('#shopping-list-entry').val('');
-  }
+            $('.shopping-list').append('<li>' +
+                '<span class="shopping-item">' + item + '</span>' +
+                '<div class="shopping-item-controls">' +
+                '<button class="shopping-item-toggle">' +
+                '<span class="button-label">check</span>' +
+                '</button>' +
+                '<button class="shopping-item-delete">' +
+                '<span class="button-label">delete</span>' +
+                '</button>' +
+                '</li>');
+            $('#shopping-list-entry').val('');
+        }
 
-});
+    });
 
     $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
         $(this).closest('li').find('.shopping-item').toggleClass('.shopping-item shopping-item__checked');
@@ -60,18 +60,23 @@ $(document).ready(function() {
         var filterSelector = $(this).val();
 
         if (filterSelector === "Checked Items") {
-          $('.shopping-item-toggle .button-label').filter(function() { return $(this).text() === "check"; }).closest('li').hide();
-          //  $('.button-label').closest('li').hide();
-           // $('.button-label').closest('li').show();
-         }
-       //  else if(filterSelector === "Unchecked Item") {
-       //    $('.shopping-item').closest('li').hide();
-         //  $('.shopping-item__checked').closest('li').show();
-       //  }
-       //  else {
-       //    $('.shopping-item').closest('li').show();
-       //    $('.shopping-item__checked').closest('li').show();
-       //  }
-})
+            $('.shopping-item-toggle .button-label').filter(function() {
+                return $(this).text() === "check"; }).closest('li').hide();
+            $('.shopping-item-toggle .button-label').filter(function() {
+                return $(this).text() === "uncheck"; }).closest('li').show();
+
+        } else if (filterSelector === "Unchecked Items") {
+            $('.shopping-item-toggle .button-label').filter(function() {
+                return $(this).text() === "uncheck"; }).closest('li').hide();
+            $('.shopping-item-toggle .button-label').filter(function() {
+                return $(this).text() === "check"; }).closest('li').show();
+
+        } else {
+            $('.shopping-item-toggle .button-label').filter(function() {
+                return $(this).text() === "uncheck"; }).closest('li').show();
+            $('.shopping-item-toggle .button-label').filter(function() {
+                return $(this).text() === "check"; }).closest('li').show();
+        }
+    })
 
 });
