@@ -1,5 +1,5 @@
 // enter item in the text box
-
+//
 // click add item or hit return, a box with border line will be created, including the name of the item and two buttons (check and delete)
 
 // when user click check button
